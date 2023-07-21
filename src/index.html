@@ -1,0 +1,93 @@
+<head>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="./Untitled-1.css">
+
+<meta charset="utf-8">
+<style>
+   .input-group{
+      margin-bottom: 20px;
+      z-index: 2;
+   }
+   .btn-primary {
+      width: 100%;
+      color:rgb(44, 47, 219);
+      background-color: white;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .form-control:focus {
+  /* 添加您的:focus样式规则 */
+    outline: none; /* 移除默认的聚焦时边框效果 */  
+     border-color: #354bdb; /*设置边框颜色为蓝色 */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);  /*添加阴影效果 */
+    /* border-radius: 1px; */
+}
+.input-group{
+   border-radius: 100px;
+}
+.imm{
+   position: absolute;
+   top: 2px;
+   left:auto;
+   
+}
+</style>
+<title>翻译</title>
+</head>
+<body>
+
+<div class="context">
+   <h1>光是翻译还不够</h1>
+   <img class="imm" src="./img_tree.png" > 
+   <div class="container input-group">
+      <!-- <input type="text" class="form-control" id="textToTranslate" placeholder="输入要翻译的文本"> -->
+      <textarea id="input_area" style="font-size: 40px;" class="form-control" id="textToTranslate" placeholder="输入要翻译的文本" rows="4"></textarea>
+   </div>
+   <div class="container input-group">
+      <button class="btn btn-primary" onclick="opentranslate()" >
+         translate
+      </button>
+      <h1 id="translate_result" ></h1>
+   </div>
+   
+</div>
+<div class="area">
+   <ul class="circles">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+   </ul>
+
+</div>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script >
+   function opentranslate(){
+        var res = document.getElementById("input_area").value;
+        fetch(`./.netlify/functions/fetch-translate?res=${res}`)
+        .then(data_2 => {
+         let data3=data_2.json();
+         return data3;
+      })
+        .then(data3=>{
+         console.log(data3);
+         var translationElement = document.getElementById("translate_result");
+          translationElement.innerText= data3.trans_result[0].dst;
+      });
+   }
+   
+</script>
+</body>

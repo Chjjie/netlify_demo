@@ -1,0 +1,6 @@
+*.txt
+js-sdk
+# Local Netlify folder
+.netlify
+.env
+node_modules
